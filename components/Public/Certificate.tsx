@@ -65,3 +65,8 @@ export const Certificate: React.FC<CertificateProps> = ({ course, studentName, c
             <p className="font-sans text-sm uppercase tracking-widest text-stone-500">Diretor Acadêmico</p>
             <p className="font-serif font-bold">Cursos de Teologia Reformada - Rodrigo Niskier</p>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};

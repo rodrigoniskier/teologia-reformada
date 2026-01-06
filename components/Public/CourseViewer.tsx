@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Course, Module, Lesson, Quiz } from '../../types';
+import { Course, Lesson } from '../../types';
 import { getStorage, saveProgress, getCourseProgress } from '../../services/storage';
 import { Video, FileText, Mic, MonitorPlay, ArrowLeft, ArrowRight, CheckCircle, Lock } from '../ui/Icons';
 import { Certificate } from './Certificate';
@@ -96,10 +96,10 @@ export const CourseViewer: React.FC = () => {
              <iframe className="w-full h-full" src={lesson.content} title={lesson.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
           </div>
         );
+      
       case 'article':
-        // Verifica se o conteúdo termina com .pdf (ignorando maiúsculas/minúsculas)
+        // Verifica se o conteúdo é um PDF
         const isPdf = lesson.content.trim().toLowerCase().endsWith('.pdf');
-
         if (isPdf) {
           return (
             <div className="w-full h-[80vh] bg-stone-100 rounded-lg shadow border border-stone-200 overflow-hidden">
@@ -107,9 +107,7 @@ export const CourseViewer: React.FC = () => {
                  src={lesson.content} 
                  className="w-full h-full" 
                  title={lesson.title}
-                 // Adicionamos type="application/pdf" para ajudar o navegador
                >
-                 {/* Fallback caso o navegador não suporte iframes de PDF */}
                  <div className="flex flex-col items-center justify-center h-full text-stone-500 gap-4">
                     <p>Seu navegador não suporta a visualização direta.</p>
                     <a 
@@ -125,13 +123,12 @@ export const CourseViewer: React.FC = () => {
             </div>
           );
         }
-
-        // Comportamento original para texto
         return (
           <div className="prose prose-lg prose-stone max-w-none font-body bg-white p-8 rounded-lg shadow border border-stone-100">
             <p className="whitespace-pre-wrap">{lesson.content}</p>
           </div>
         );
+
       case 'audio':
         return (
           <div className="bg-stone-100 p-8 rounded-lg flex flex-col items-center justify-center gap-4">
@@ -139,8 +136,9 @@ export const CourseViewer: React.FC = () => {
              <audio controls src={lesson.content} className="w-full max-w-md" />
           </div>
         );
+
       case 'slide':
-        // Verifica se é PDF
+        // Lógica unificada para Slides (PDF ou Web)
         const isSlidePdf = lesson.content.trim().toLowerCase().endsWith('.pdf');
 
         if (isSlidePdf) {
@@ -167,27 +165,23 @@ export const CourseViewer: React.FC = () => {
           );
         }
 
-        // Caso não seja PDF (ex: Link do Google Slides, Canva ou Prezi)
         return (
           <div className="aspect-video w-full bg-stone-900 rounded-lg overflow-hidden shadow-lg flex items-center justify-center">
-            {lesson.content.startsWith('http') ? (
-              <iframe 
-                className="w-full h-full" 
-                src={lesson.content} 
-                title={lesson.title} 
-                frameBorder="0" 
-                allowFullScreen
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              ></iframe>
-            ) : (
-              // Fallback se for apenas texto escrito
-              <div className="text-white p-8 text-center">
-                <MonitorPlay size={48} className="mx-auto mb-4 opacity-50" />
-                <p>{lesson.content}</p>
-              </div>
-            )}
+             {lesson.content.startsWith('http') ? (
+               <iframe className="w-full h-full" src={lesson.content} title={lesson.title} frameBorder="0" allowFullScreen></iframe>
+             ) : (
+               <div className="text-white p-12 text-center">
+                  <MonitorPlay size={48} className="mx-auto mb-4 opacity-50" />
+                  <span>{lesson.content}</span>
+               </div>
+             )}
           </div>
         );
+
+      default:
+        return <div>Unsupported Content</div>;
+    }
+  };
 
   if (!course) return <div className="p-8 text-center">Carregando curso...</div>;
 

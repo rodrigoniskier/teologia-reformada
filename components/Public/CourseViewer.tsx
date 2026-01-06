@@ -140,16 +140,54 @@ export const CourseViewer: React.FC = () => {
           </div>
         );
       case 'slide':
+        // Verifica se é PDF
+        const isSlidePdf = lesson.content.trim().toLowerCase().endsWith('.pdf');
+
+        if (isSlidePdf) {
+          return (
+            <div className="w-full h-[80vh] bg-stone-100 rounded-lg shadow border border-stone-200 overflow-hidden">
+               <iframe 
+                 src={lesson.content} 
+                 className="w-full h-full" 
+                 title={lesson.title}
+               >
+                 <div className="flex flex-col items-center justify-center h-full text-stone-500 gap-4">
+                    <p>Seu navegador não suporta a visualização direta.</p>
+                    <a 
+                      href={lesson.content} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-burgundy-800 underline font-bold"
+                    >
+                      Clique aqui para baixar os Slides
+                    </a>
+                 </div>
+               </iframe>
+            </div>
+          );
+        }
+
+        // Caso não seja PDF (ex: Link do Google Slides, Canva ou Prezi)
         return (
-          <div className="bg-stone-900 text-white p-12 rounded-lg min-h-[400px] flex items-center justify-center">
-            <MonitorPlay size={48} className="mr-4" />
-            <span>Slide Content Placeholder: {lesson.content}</span>
+          <div className="aspect-video w-full bg-stone-900 rounded-lg overflow-hidden shadow-lg flex items-center justify-center">
+            {lesson.content.startsWith('http') ? (
+              <iframe 
+                className="w-full h-full" 
+                src={lesson.content} 
+                title={lesson.title} 
+                frameBorder="0" 
+                allowFullScreen
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              ></iframe>
+            ) : (
+              // Fallback se for apenas texto escrito
+              <div className="text-white p-8 text-center">
+                <MonitorPlay size={48} className="mx-auto mb-4 opacity-50" />
+                <p>{lesson.content}</p>
+              </div>
+            )}
           </div>
         );
-      default:
-        return <div>Unsupported Content</div>;
-    }
-  };
 
   if (!course) return <div className="p-8 text-center">Carregando curso...</div>;
 

@@ -155,7 +155,7 @@ export const AdminDashboard: React.FC = () => {
                           setEditingCourse({...editingCourse, modules: newModules});
                         }}
                         className="flex-1 text-sm p-1 border rounded"
-                        placeholder="Conteúdo (Texto ou URL)"
+                        placeholder="Conteúdo (Texto ou LInk PDF)"
                       />
                       <button 
                         onClick={() => {

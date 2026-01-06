@@ -97,9 +97,39 @@ export const CourseViewer: React.FC = () => {
           </div>
         );
       case 'article':
+        // Verifica se o conteúdo termina com .pdf (ignorando maiúsculas/minúsculas)
+        const isPdf = lesson.content.trim().toLowerCase().endsWith('.pdf');
+
+        if (isPdf) {
+          return (
+            <div className="w-full h-[80vh] bg-stone-100 rounded-lg shadow border border-stone-200 overflow-hidden">
+               <iframe 
+                 src={lesson.content} 
+                 className="w-full h-full" 
+                 title={lesson.title}
+                 // Adicionamos type="application/pdf" para ajudar o navegador
+               >
+                 {/* Fallback caso o navegador não suporte iframes de PDF */}
+                 <div className="flex flex-col items-center justify-center h-full text-stone-500 gap-4">
+                    <p>Seu navegador não suporta a visualização direta.</p>
+                    <a 
+                      href={lesson.content} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-burgundy-800 underline font-bold"
+                    >
+                      Clique aqui para baixar o PDF
+                    </a>
+                 </div>
+               </iframe>
+            </div>
+          );
+        }
+
+        // Comportamento original para texto
         return (
           <div className="prose prose-lg prose-stone max-w-none font-body bg-white p-8 rounded-lg shadow border border-stone-100">
-            <p>{lesson.content}</p>
+            <p className="whitespace-pre-wrap">{lesson.content}</p>
           </div>
         );
       case 'audio':

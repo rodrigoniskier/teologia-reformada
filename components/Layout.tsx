@@ -198,7 +198,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </form>
                 
                 <div className="mt-6 text-center pt-6 border-t border-stone-100">
-                  <p className="text-xs text-stone-400">Ou envie um email direto para:</p>
+                  <p className="text-xs text-stone-400">Ou envie um email direto para:niskier.rodrigo@gmail.com</p>
                   <a href="mailto:contato@rodrigoniskier.com" className="text-burgundy-700 font-bold hover:underline">contato@rodrigoniskier.com</a>
                 </div>
              </div>

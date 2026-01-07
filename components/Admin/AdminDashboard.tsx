@@ -38,7 +38,19 @@ export const AdminDashboard: React.FC = () => {
       setCourses(updatedList);
     }
   };
-
+// Função para copiar os dados para a área de transferência
+  const handleExportData = () => {
+    // Converte os cursos atuais em texto formatado JSON
+    const dataString = JSON.stringify(courses, null, 2);
+    
+    // Copia para o clipboard do computador
+    navigator.clipboard.writeText(dataString).then(() => {
+      alert("DADOS COPIADOS!\n\nAgora vá no arquivo 'constants.ts' e substitua o valor de INITIAL_COURSES por este conteúdo que você acabou de copiar.\n\nNão esqueça de aumentar o número da versão!");
+    }).catch(err => {
+      console.error('Erro ao copiar', err);
+      alert("Erro ao copiar. Veja o console.");
+    });
+  };
   if (editingCourse) {
     return (
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg border border-stone-200">

@@ -140,7 +140,7 @@ export const CourseCatalog: React.FC = () => {
                 <p className="mb-2">
                   <strong>Não-Reconhecimento MEC:</strong> Estes cursos <u>não</u> possuem reconhecimento pelo Ministério da Educação (MEC) ou vínculos com instituições acadêmicas seculares oficiais, não servindo para titulação de graduação ou pós-graduação <em>lato/stricto sensu</em>.
                 </p>
-                <p>
+                <p className="mb-2">
                   <strong>Compromisso de Honra:</strong> O certificado emitido é um atestado simbólico de honra. Ele declara, sob a luz da própria consciência e ética cristã do aluno, que o material foi acessado, estudado e a avaliação concluída com honestidade. O valor deste documento reside na integridade de quem o porta (1 Coríntios 4:2).
                 </p>
                 <p>

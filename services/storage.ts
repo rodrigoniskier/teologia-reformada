@@ -1,23 +1,45 @@
 import { Course, StorageData, UserProgress } from '../types';
-import { INITIAL_COURSES } from '../constants';
+import { INITIAL_COURSES, DATA_VERSION } from '../constants';
 
 const STORAGE_KEY = 'reformed_lms_data';
 
 export const getStorage = (): StorageData => {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (!data) {
-      const initial: StorageData = {
-        courses: INITIAL_COURSES,
-        progress: {}
-      };
-      saveStorage(initial);
-      return initial;
+    const rawData = localStorage.getItem(STORAGE_KEY);
+    
+    // Configuração inicial padrão
+    const initialData: StorageData = {
+      version: DATA_VERSION,
+      courses: INITIAL_COURSES,
+      progress: {}
+    };
+
+    if (!rawData) {
+      saveStorage(initialData);
+      return initialData;
     }
-    return JSON.parse(data);
+
+    const savedData: StorageData = JSON.parse(rawData);
+
+    // VERIFICAÇÃO DE VERSÃO MÁGICA
+    // Se a versão salva for menor que a versão do código, atualizamos os cursos
+    if (!savedData.version || savedData.version < DATA_VERSION) {
+      console.log("Nova versão detectada. Atualizando cursos...");
+      
+      const upgradedData: StorageData = {
+        version: DATA_VERSION,     // Atualiza a versão
+        courses: INITIAL_COURSES,  // Pega os cursos novos do arquivo constants.ts
+        progress: savedData.progress // Mantém o progresso do aluno (não apaga o que ele já estudou)
+      };
+      
+      saveStorage(upgradedData);
+      return upgradedData;
+    }
+
+    return savedData;
   } catch (e) {
     console.error("Failed to load storage", e);
-    return { courses: [], progress: {} };
+    return { version: DATA_VERSION, courses: INITIAL_COURSES, progress: {} };
   }
 };
 
@@ -29,6 +51,7 @@ export const saveStorage = (data: StorageData) => {
   }
 };
 
+// As funções abaixo continuam iguais, apenas a tipagem do data já inclui a versão
 export const saveCourse = (course: Course) => {
   const data = getStorage();
   const index = data.courses.findIndex(c => c.id === course.id);

@@ -3,7 +3,7 @@ import { Course } from './types';
 export const ADMIN_PIN = '1517';
 
 // Toda vez que você atualizar os cursos no código, AUMENTE este número (1, 2, 3...)
-export const DATA_VERSION = 2; 
+export const DATA_VERSION = 3; 
 
 export const INITIAL_COURSES: Course[] = [
   {

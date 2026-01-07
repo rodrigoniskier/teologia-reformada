@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, User, Menu, X, Github, Linkedin, Mail, Shield, MessageCircle } from './ui/Icons';
+import { BookOpen, User, Menu, X, Instagram, Linkedin, Mail, Shield, MessageCircle } from './ui/Icons';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -94,9 +94,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               Dedicado a fornecer ensino teológico sólido, confessional e acessível. Nossa missão é edificar a igreja através do conhecimento profundo das Escrituras e da tradição reformada.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-burgundy-400 transition-colors"><Github size={20} /></a>
-              <a href="#" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
-              <a href="#" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
+              <a href="https://www.instagram.com/rodrigo_niskier/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Instagram size={20} /></a>
+              <a href="https://www.linkedin.com/in/rodrigo-niskier-200549156/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
+              <a href="mailto:niskier.rodrigo@gmail.com" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
             </div>
           </div>
           

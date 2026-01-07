@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Course, Module, Lesson, Quiz } from '../../types';
+import { Course } from '../../types';
 import { getStorage, saveCourse, deleteCourse } from '../../services/storage';
 import { Plus, Trash2, Edit, X, CheckCircle, Award, BookOpen } from '../ui/Icons';
 
@@ -23,23 +23,7 @@ export const AdminDashboard: React.FC = () => {
     };
     setEditingCourse(newCourse);
   };
-{/* Dentro do return, procure o header onde está o botão Novo Curso */}
-<div className="flex gap-2"> {/* Envolva os botões numa div flex */}
-  <button 
-    onClick={handleExportData}
-    className="bg-stone-200 text-navy-900 px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-stone-300 shadow-md transition-all border border-stone-300"
-  >
-    {/* Ícone de Download ou similar */}
-    Exportar JSON
-  </button>
 
-  <button 
-    onClick={handleCreateCourse}
-    className="bg-navy-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-navy-900 shadow-md transition-all"
-  >
-    <Plus size={20} /> Novo Curso
-  </button>
-</div>
   const handleSaveCourse = () => {
     if (editingCourse) {
       const updatedList = saveCourse(editingCourse);
@@ -54,7 +38,8 @@ export const AdminDashboard: React.FC = () => {
       setCourses(updatedList);
     }
   };
-// Função para copiar os dados para a área de transferência
+
+  // Função para copiar os dados para a área de transferência
   const handleExportData = () => {
     // Converte os cursos atuais em texto formatado JSON
     const dataString = JSON.stringify(courses, null, 2);
@@ -67,6 +52,8 @@ export const AdminDashboard: React.FC = () => {
       alert("Erro ao copiar. Veja o console.");
     });
   };
+
+  // MODO DE EDIÇÃO (EDITOR DE CURSO)
   if (editingCourse) {
     return (
       <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg border border-stone-200">
@@ -323,6 +310,7 @@ export const AdminDashboard: React.FC = () => {
     );
   }
 
+  // MODO DE VISUALIZAÇÃO (LISTA DE CURSOS)
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-8">
@@ -330,12 +318,22 @@ export const AdminDashboard: React.FC = () => {
           <h1 className="text-3xl font-serif font-bold text-navy-900">Painel Administrativo</h1>
           <p className="text-stone-600">Gerencie minicursos, módulos e certificações.</p>
         </div>
-        <button 
-          onClick={handleCreateCourse}
-          className="bg-navy-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-navy-900 shadow-md transition-all"
-        >
-          <Plus size={20} /> Novo Curso
-        </button>
+        
+        <div className="flex gap-2">
+          <button 
+            onClick={handleExportData}
+            className="bg-stone-200 text-navy-900 px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-stone-300 shadow-md transition-all border border-stone-300"
+          >
+            Exportar JSON
+          </button>
+
+          <button 
+            onClick={handleCreateCourse}
+            className="bg-navy-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-navy-900 shadow-md transition-all"
+          >
+            <Plus size={20} /> Novo Curso
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

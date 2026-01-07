@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  BookOpen, User, Menu, X, Github, Linkedin, Mail, Shield, MessageCircle, Settings 
+  BookOpen, User, Menu, X, Instagram, Linkedin, Mail, Shield, MessageCircle, Settings 
 } from './ui/Icons';
 import { ADMIN_PIN } from '../constants';
 
@@ -118,9 +118,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
                 Dedicado a fornecer ensino teológico sólido, confessional e acessível.
               </p>
               <div className="flex gap-4">
-                <a href="https://github.com/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Github size={20} /></a>
-                <a href="https://www.linkedin.com/in/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
-                <a href="mailto:contato@rodrigoniskier.com" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
+                <a href="https://https://www.instagram.com/rodrigo_niskier/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Instagram size={20} /></a>
+                <a href="https://www.linkedin.com/in/rodrigo-niskier-200549156/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
+                <a href="mailto:niskier.rodrigo@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
               </div>
             </div>
             

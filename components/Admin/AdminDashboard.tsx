@@ -23,7 +23,23 @@ export const AdminDashboard: React.FC = () => {
     };
     setEditingCourse(newCourse);
   };
+{/* Dentro do return, procure o header onde está o botão Novo Curso */}
+<div className="flex gap-2"> {/* Envolva os botões numa div flex */}
+  <button 
+    onClick={handleExportData}
+    className="bg-stone-200 text-navy-900 px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-stone-300 shadow-md transition-all border border-stone-300"
+  >
+    {/* Ícone de Download ou similar */}
+    Exportar JSON
+  </button>
 
+  <button 
+    onClick={handleCreateCourse}
+    className="bg-navy-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-navy-900 shadow-md transition-all"
+  >
+    <Plus size={20} /> Novo Curso
+  </button>
+</div>
   const handleSaveCourse = () => {
     if (editingCourse) {
       const updatedList = saveCourse(editingCourse);

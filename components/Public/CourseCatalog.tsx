@@ -143,6 +143,9 @@ export const CourseCatalog: React.FC = () => {
                 <p>
                   <strong>Compromisso de Honra:</strong> O certificado emitido é um atestado simbólico de honra. Ele declara, sob a luz da própria consciência e ética cristã do aluno, que o material foi acessado, estudado e a avaliação concluída com honestidade. O valor deste documento reside na integridade de quem o porta (1 Coríntios 4:2).
                 </p>
+                <p>
+                  <strong>Investimento:</strong> Os cursos disponibilizados aqui são (e sempre serão) inteiramente gratuitos. Entretanto, caso você queira, voluntária e espontaneamente, colaborar com este trabalho, pode fazer um pix de qualquer valor para rrbiom@gmail.com. Muito obrigado e Deus abençoe.
+                </p>
               </div>
             </div>
           </div>

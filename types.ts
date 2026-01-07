@@ -47,6 +47,7 @@ export interface UserProgress {
 }
 
 export interface StorageData {
+  version: number; // Adicionado: Controle de versão
   courses: Course[];
-  progress: Record<string, UserProgress>; // key is courseId
+  progress: Record<string, UserProgress>; 
 }

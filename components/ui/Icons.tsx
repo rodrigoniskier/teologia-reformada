@@ -16,8 +16,14 @@ import {
   Download,
   Printer,
   X,
-  Shield,       // Adicionado para corrigir o erro no CourseCatalog
-  ShieldCheck   // Adicionado para uso no Certificate
+  Shield,       
+  ShieldCheck,   
+  MessageCircle, // Novo (Contato)
+  User,          // Novo (Área do Aluno)
+  Menu,          // Novo (Menu Mobile)
+  Github,        // Novo (Footer)
+  Linkedin,      // Novo (Footer)
+  Mail           // Novo (Footer)
 } from 'lucide-react';
 
 export {
@@ -39,5 +45,11 @@ export {
   Printer,
   X,
   Shield,
-  ShieldCheck
+  ShieldCheck,
+  MessageCircle,
+  User,
+  Menu,
+  Github,
+  Linkedin,
+  Mail
 };

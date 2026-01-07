@@ -18,12 +18,12 @@ import {
   X,
   Shield,       
   ShieldCheck,   
-  MessageCircle, // Novo (Contato)
-  User,          // Novo (Área do Aluno)
-  Menu,          // Novo (Menu Mobile)
-  Github,        // Novo (Footer)
-  Linkedin,      // Novo (Footer)
-  Mail           // Novo (Footer)
+  MessageCircle, 
+  User,          
+  Menu,          
+  Instagram,     // Adicionado para corrigir o erro
+  Linkedin,      
+  Mail           
 } from 'lucide-react';
 
 export {
@@ -49,7 +49,7 @@ export {
   MessageCircle,
   User,
   Menu,
-  Github,
+  Instagram,
   Linkedin,
   Mail
 };

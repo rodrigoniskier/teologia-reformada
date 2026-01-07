@@ -26,18 +26,24 @@ export const INITIAL_COURSES: Course[] = [
         "lessons": [
           {
             "id": "1767792043418",
+            "title": "Conteúdo",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/conteudo.pdf"
+          },
+          {
+            "id": "1767792090650",
             "title": "Aula 01 - Slides",
             "type": "slide",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula01.pdf"
           },
           {
-            "id": "1767792090650",
+            "id": "1767792205591",
             "title": "Aula 01 - Vídeo",
             "type": "video",
             "content": "https://www.youtube.com/embed/q1NRFmWNS8c"
           },
           {
-            "id": "1767792205591",
+            "id": "1767792826900",
             "title": "Aula 01 - Banner",
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula01banner.pdf"

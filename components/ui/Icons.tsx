@@ -15,7 +15,9 @@ import {
   Lock,
   Download,
   Printer,
-  X
+  X,
+  Shield,       // Adicionado para corrigir o erro no CourseCatalog
+  ShieldCheck   // Adicionado para uso no Certificate
 } from 'lucide-react';
 
 export {
@@ -35,5 +37,7 @@ export {
   Lock,
   Download,
   Printer,
-  X
+  X,
+  Shield,
+  ShieldCheck
 };

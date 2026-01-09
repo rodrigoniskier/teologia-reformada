@@ -3,9 +3,17 @@ import { Course } from './types';
 export const ADMIN_PIN = '1517';
 
 // Toda vez que você atualizar os cursos no código, AUMENTE este número (1, 2, 3...)
-export const DATA_VERSION = 3; 
+export const DATA_VERSION = 4; 
 
 export const INITIAL_COURSES: Course[] = [
+  {
+    "id": "1767791811245",
+    "title": "História da Autorrevelação Especial de Deus",
+    "description": "Este tema é conhecido também como Teologia Bíblica. \n\nEle explora a continuidade e as (aparentes) tensões entre o Antigo e o Novo Testamento. \n\nO conteúdo examina temas fundamentais como a revelação progressiva, o conceito de pacto (berith) e a natureza da lei mosaica em relação à graça cristã, a identidade de Deus, sua santidade, transcendência e a manifestação de sua vontade através de figuras como Moisés e os profetas. \n\nO curso também avalia métodos de interpretação, contrastando a crítica histórica com abordagens canônicas e teológicas que buscam compreender a unidade das Escrituras. \n\nPor fim, debatem-se tópicos específicos como a expiação, a escatologia, o papel do Messias e o impacto do pensamento moderno na doutrina da criação.",
+    "author": "Autor",
+    "coverImage": "https://rodrigoniskier.github.io/teologia-reformada/img/teobib.png",
+    "modules": [
+      [
   {
     "id": "1767791811245",
     "title": "História da Autorrevelação Especial de Deus",
@@ -41,6 +49,59 @@ export const INITIAL_COURSES: Course[] = [
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula01banner.pdf"
           }
+        ]
+      },
+      {
+        "id": "1767955095988",
+        "title": "Módulo 02",
+        "lessons": [
+          {
+            "id": "1767955119408",
+            "title": "Aula 02 - Slides",
+            "type": "slide",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula02.pdf"
+          },
+          {
+            "id": "1767955139710",
+            "title": "Aula 02 - Vídeo",
+            "type": "video",
+            "content": "https://www.youtube.com/embed/s3NO9LyCw1M"
+          },
+          {
+            "id": "1767955164043",
+            "title": "Aula 02 - Banner",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula02banner.pdf"
+          }
+        ]
+      },
+      {
+        "id": "1767955220982",
+        "title": "Módulo 03",
+        "lessons": [
+          {
+            "id": "1767955228521",
+            "title": "Aula 03 - Slides",
+            "type": "slide",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula03.pdf"
+          },
+          {
+            "id": "1767955250441",
+            "title": "Aula 03 - Vídeo",
+            "type": "video",
+            "content": "https://www.youtube.com/embed/A0kpi5iqcBE"
+          },
+          {
+            "id": "1767955271370",
+            "title": "Aula 03 - Banner",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula03banner.pdf"
+          }
+        ]
+      }
+    ]
+  }
+]
         ]
       }
     ]

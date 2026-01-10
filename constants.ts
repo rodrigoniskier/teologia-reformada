@@ -3,88 +3,88 @@ import { Course } from './types';
 export const ADMIN_PIN = '1517';
 
 // Toda vez que você atualizar os cursos no código, AUMENTE este número (1, 2, 3...)
-export const DATA_VERSION = 5; 
+export const DATA_VERSION = 6; 
 
 export const INITIAL_COURSES: Course[] = [
   {
-    id: "1767791811245",
-    title: "História da Autorrevelação Especial de Deus",
-    description: "Este tema é conhecido também como Teologia Bíblica. \n\nEle explora a continuidade e as (aparentes) tensões entre o Antigo e o Novo Testamento. \n\nO conteúdo examina temas fundamentais como a revelação progressiva, o conceito de pacto (berith) e a natureza da lei mosaica em relação à graça cristã, a identidade de Deus, sua santidade, transcendência e a manifestação de sua vontade através de figuras como Moisés e os profetas. \n\nO curso também avalia métodos de interpretação, contrastando a crítica histórica com abordagens canônicas e teológicas que buscam compreender a unidade das Escrituras. \n\nPor fim, debatem-se tópicos específicos como a expiação, a escatologia, o papel do Messias e o impacto do pensamento moderno na doutrina da criação.",
-    author: "Autor",
-    coverImage: "https://rodrigoniskier.github.io/teologia-reformada/img/teobib.png",
-    modules: [
+    "id": "1767791811245",
+    "title": "História da Autorrevelação Especial de Deus",
+    "description": "Este tema é conhecido também como Teologia Bíblica. \n\nEle explora a continuidade e as (aparentes) tensões entre o Antigo e o Novo Testamento. \n\nO conteúdo examina temas fundamentais como a revelação progressiva, o conceito de pacto (berith) e a natureza da lei mosaica em relação à graça cristã, a identidade de Deus, sua santidade, transcendência e a manifestação de sua vontade através de figuras como Moisés e os profetas. \n\nO curso também avalia métodos de interpretação, contrastando a crítica histórica com abordagens canônicas e teológicas que buscam compreender a unidade das Escrituras. \n\nPor fim, debatem-se tópicos específicos como a expiação, a escatologia, o papel do Messias e o impacto do pensamento moderno na doutrina da criação.",
+    "author": "Autor",
+    "coverImage": "https://rodrigoniskier.github.io/teologia-reformada/img/teobib.png",
+    "modules": [
       {
-        id: "1767792036221",
-        title: "Módulo 01",
-        lessons: [
+        "id": "1767792036221",
+        "title": "Módulo 01",
+        "lessons": [
           {
-            id: "1767792043418",
-            title: "Conteúdo",
-            type: "article",
-            content: "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/conteudo.pdf"
+            "id": "1767792043418",
+            "title": "Conteúdo",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/conteudo.pdf"
           },
           {
-            id: "1767792090650",
-            title: "Aula 01 - Slides",
+            "id": "1767792090650",
+            "title": "Aula 01 - Slides",
             "type": "slide",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula01.pdf"
           },
           {
-            id: "1767792205591",
-            title: "Aula 01 - Vídeo",
+            "id": "1767792205591",
+            "title": "Aula 01 - Vídeo",
             "type": "video",
             "content": "https://www.youtube.com/embed/q1NRFmWNS8c"
           },
           {
-            id: "1767792826900",
-            title: "Aula 01 - Banner",
+            "id": "1767792826900",
+            "title": "Aula 01 - Banner",
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula01banner.pdf"
           }
         ]
       },
       {
-        id: "1767955095988",
-        title: "Módulo 02",
-        lessons: [
+        "id": "1767955095988",
+        "title": "Módulo 02",
+        "lessons": [
           {
-            id: "1767955119408",
-            title: "Aula 02 - Slides",
+            "id": "1767955119408",
+            "title": "Aula 02 - Slides",
             "type": "slide",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula02.pdf"
           },
           {
-            id: "1767955139710",
-            title: "Aula 02 - Vídeo",
+            "id": "1767955139710",
+            "title": "Aula 02 - Vídeo",
             "type": "video",
             "content": "https://www.youtube.com/embed/s3NO9LyCw1M"
           },
           {
-            id: "1767955164043",
-            title: "Aula 02 - Banner",
+            "id": "1767955164043",
+            "title": "Aula 02 - Banner",
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula02banner.pdf"
           }
         ]
       },
       {
-        id: "1767955220982",
-        title: "Módulo 03",
-        lessons: [
+        "id": "1767955220982",
+        "title": "Módulo 03",
+        "lessons": [
           {
-            id: "1767955228521",
+            "id": "1767955228521",
             "title": "Aula 03 - Slides",
             "type": "slide",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/historiadaautorrevelacao/aula03.pdf"
           },
           {
-            id: "1767955250441",
+            "id": "1767955250441",
             "title": "Aula 03 - Vídeo",
             "type": "video",
             "content": "https://www.youtube.com/embed/A0kpi5iqcBE"
           },
           {
-            id: "1767955271370",
+            "id": "1767955271370",
             "title": "Aula 03 - Banner",
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula03banner.pdf"
@@ -92,5 +92,44 @@ export const INITIAL_COURSES: Course[] = [
         ]
       }
     ]
+  },
+  {
+    "id": "1768062924153",
+    "title": "Teologia Sistemática Reformada",
+    "description": "Este curso foi concebido não apenas para estudantes de teologia, mas para qualquer cristão que deseje se aprofundar nos temas centrais da Bíblia e, ao fazê-lo, conhecer melhor a si mesmo e ao Deus que o criou e redimiu. \n\nNossa abordagem será fundamentada na rica tradição da Teologia Reformada, que concebe o estudo teológico não como um mero acúmulo de conhecimento abstrato, mas como um caminho para o amadurecimento na fé e na piedade.\n\nComo nos lembra o teólogo Herman Bavinck, o conhecimento teológico autêntico é inseparável da vida devocional, pois \"a piedade para tudo é proveitosa\". \n\nEstruturamos nosso percurso de forma deliberada: começaremos estabelecendo o fundamento de nosso conhecimento (Revelação e Escritura), para então  explorarmos o objeto de nosso conhecimento (Deus e a Trindade). \n\nCompreenderemos nossa necessidade de redenção\n(Queda e Pecado), maravilhando-nos com os meios da redenção (Cristo e a Aplicação da Salvação). \n\nViveremos no contexto da redenção (a Igreja) e, finalmente, nos firmaremos na esperança da redenção (as Últimas Coisas). \n\nQue nosso estudo, portanto, nos conduza a uma adoração mais profunda e a uma vida mais fiel para a glória de Deus.",
+    "author": "Autor",
+    "coverImage": "https://rodrigoniskier.github.io/teologia-reformada/img/sistematica.png",
+    "modules": [
+      {
+        "id": "1768063072698",
+        "title": "Módulo 01",
+        "lessons": [
+          {
+            "id": "1768063080848",
+            "title": "Plano de Ensino",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/sistematica/plano.pdf"
+          },
+          {
+            "id": "1768063106028",
+            "title": "Aula 01 - Slides",
+            "type": "slide",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/sistematica/aula01.pdf"
+          },
+          {
+            "id": "1768063125680",
+            "title": "Aula 01 - Vídeo",
+            "type": "video",
+            "content": "https://www.youtube.com/embed/sfaBLxokgHU"
+          },
+          {
+            "id": "1768063139593",
+            "title": "Aula 01 - Banner",
+            "type": "article",
+            "content": "https://rodrigoniskier.github.io/teologia-reformada/cursos/sistematica/aula01banner.pdf"
+          }
+        ]
+      }
+    ]
   }
-];
+]

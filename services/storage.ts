@@ -1,4 +1,4 @@
-import { Course, StorageData, UserProgress } from '../types';
+import { Course, StorageData, UserProgress, ContactMessage } from '../types';
 import { INITIAL_COURSES, DATA_VERSION } from '../constants';
 
 const STORAGE_KEY = 'reformed_lms_data';
@@ -11,7 +11,8 @@ export const getStorage = (): StorageData => {
     const initialData: StorageData = {
       version: DATA_VERSION,
       courses: INITIAL_COURSES,
-      progress: {}
+      progress: {},
+      messages: [] // Inicializa lista de mensagens
     };
 
     if (!rawData) {
@@ -21,15 +22,20 @@ export const getStorage = (): StorageData => {
 
     const savedData: StorageData = JSON.parse(rawData);
 
-    // VERIFICAÇÃO DE VERSÃO MÁGICA
-    // Se a versão salva for menor que a versão do código, atualizamos os cursos
+    // Garante que o array de mensagens exista (para usuários antigos)
+    if (!savedData.messages) {
+        savedData.messages = [];
+    }
+
+    // VERIFICAÇÃO DE VERSÃO
     if (!savedData.version || savedData.version < DATA_VERSION) {
       console.log("Nova versão detectada. Atualizando cursos...");
       
       const upgradedData: StorageData = {
-        version: DATA_VERSION,     // Atualiza a versão
-        courses: INITIAL_COURSES,  // Pega os cursos novos do arquivo constants.ts
-        progress: savedData.progress // Mantém o progresso do aluno (não apaga o que ele já estudou)
+        version: DATA_VERSION,
+        courses: INITIAL_COURSES,
+        progress: savedData.progress,
+        messages: savedData.messages || []
       };
       
       saveStorage(upgradedData);
@@ -39,7 +45,7 @@ export const getStorage = (): StorageData => {
     return savedData;
   } catch (e) {
     console.error("Failed to load storage", e);
-    return { version: DATA_VERSION, courses: INITIAL_COURSES, progress: {} };
+    return { version: DATA_VERSION, courses: INITIAL_COURSES, progress: {}, messages: [] };
   }
 };
 
@@ -51,7 +57,6 @@ export const saveStorage = (data: StorageData) => {
   }
 };
 
-// As funções abaixo continuam iguais, apenas a tipagem do data já inclui a versão
 export const saveCourse = (course: Course) => {
   const data = getStorage();
   const index = data.courses.findIndex(c => c.id === course.id);
@@ -81,4 +86,32 @@ export const saveProgress = (progress: UserProgress) => {
 export const getCourseProgress = (courseId: string): UserProgress | undefined => {
   const data = getStorage();
   return data.progress[courseId];
+};
+
+// --- FUNÇÕES DE MENSAGEM (CORREÇÃO DO ERRO) ---
+
+export const saveMessage = (msg: ContactMessage) => {
+  const data = getStorage();
+  if (!data.messages) data.messages = [];
+  data.messages.unshift(msg);
+  saveStorage(data);
+};
+
+export const deleteMessage = (id: string) => {
+  const data = getStorage();
+  if (data.messages) {
+      data.messages = data.messages.filter(m => m.id !== id);
+      saveStorage(data);
+  }
+};
+
+export const markMessageAsRead = (id: string) => {
+  const data = getStorage();
+  if (data.messages) {
+      const msg = data.messages.find(m => m.id === id);
+      if (msg) {
+        msg.read = true;
+        saveStorage(data);
+      }
+  }
 };

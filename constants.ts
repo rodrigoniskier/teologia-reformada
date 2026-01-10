@@ -37,7 +37,7 @@ export const INITIAL_COURSES: Course[] = [
           },
           {
             id: "1767792826900",
-            title": "Aula 01 - Banner",
+            title: "Aula 01 - Banner",
             "type": "article",
             "content": "https://rodrigoniskier.github.io/teologia-reformada/img/aula01banner.pdf"
           }

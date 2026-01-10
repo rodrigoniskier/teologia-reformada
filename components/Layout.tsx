@@ -168,8 +168,8 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
               </p>
               <div className="flex gap-4">
                 <a href="https://github.com/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Github size={20} /></a>
-                <a href="https://www.linkedin.com/in/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
-                <a href="mailto:contato@rodrigoniskier.com" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
+                <a href="https://www.linkedin.com/in/rodrigo-niskier-200549156/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
+                <a href="mailto:niskier.rodrigo@gmail.com" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
               </div>
             </div>
             

@@ -3,7 +3,13 @@ import { Course } from './types';
 export const ADMIN_PIN = '1517';
 
 // Toda vez que você atualizar os cursos no código, AUMENTE este número (1, 2, 3...)
-export const DATA_VERSION = 6; 
+export const DATA_VERSION = 7; 
+
+// --- CONFIGURAÇÕES DE E-MAIL (EMAILJS) ---
+// Preencha com os dados do seu painel do EmailJS
+export const EMAILJS_SERVICE_ID = "service_djmdlpk"; // Coloque seu Service ID aqui
+export const EMAILJS_TEMPLATE_ID = "template_cp1bwu7"; // Coloque seu Template ID aqui
+export const EMAILJS_PUBLIC_KEY = "9ivZt8celQ0IkoBzn"; // Coloque sua Public Key aqui
 
 export const INITIAL_COURSES: Course[] = [
   {

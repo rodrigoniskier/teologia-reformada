@@ -21,7 +21,8 @@ import {
   MessageCircle, 
   User,          
   Menu,          
-  Instagram,     // Adicionado para corrigir o erro
+  Instagram,     
+  Github,        // Adicionado de volta!
   Linkedin,      
   Mail           
 } from 'lucide-react';
@@ -50,6 +51,7 @@ export {
   User,
   Menu,
   Instagram,
+  Github,       // Exportado novamente
   Linkedin,
   Mail
 };

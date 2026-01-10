@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import emailjs from '@emailjs/browser'; // Biblioteca de Email
 import { 
-  BookOpen, User, Menu, X, Instagram, Linkedin, Mail, Shield, MessageCircle, Settings 
+  BookOpen, User, Menu, X, Github, Linkedin, Mail, Shield, MessageCircle, Settings 
 } from './ui/Icons';
-import { ADMIN_PIN } from '../constants';
+import { 
+  ADMIN_PIN, 
+  EMAILJS_SERVICE_ID, 
+  EMAILJS_TEMPLATE_ID, 
+  EMAILJS_PUBLIC_KEY 
+} from '../constants';
+import { saveMessage } from '../services/storage';
+import { ContactMessage } from '../types';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,14 +20,18 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin }) => {
-  // Estados do Layout Moderno
+  // Estados de Navegação
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<'none' | 'confession' | 'contact'>('none');
   
-  // Estados da Lógica de Admin (Recuperados)
+  // Estados do Admin
   const [showPinDialog, setShowPinDialog] = useState(false);
   const [pin, setPin] = useState('');
   const [error, setError] = useState(false);
+
+  // Estados do Formulário de Contato
+  const [isSending, setIsSending] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   
   const location = useLocation();
   const isImmersive = location.pathname.startsWith('/course/');
@@ -44,13 +56,56 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
 
   const closeModal = () => setActiveModal('none');
 
+  // --- LÓGICA DE ENVIO DE E-MAIL ---
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    if (!formRef.current) return;
+
+    // 1. Enviar E-mail Real via EmailJS
+    emailjs.sendForm(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      formRef.current,
+      EMAILJS_PUBLIC_KEY
+    )
+    .then(() => {
+      // Sucesso no envio do e-mail
+      alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');
+      
+      // 2. Salvar Backup Local (Admin)
+      const formData = new FormData(formRef.current!);
+      const newMessage: ContactMessage = {
+        id: Date.now().toString(),
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        message: formData.get('message') as string,
+        date: new Date().toLocaleDateString('pt-BR'),
+        read: false
+      };
+      saveMessage(newMessage);
+
+      // Limpeza
+      setIsSending(false);
+      formRef.current?.reset();
+      closeModal();
+    })
+    .catch((error) => {
+      // Erro no envio
+      console.error('Erro ao enviar email:', error);
+      alert('Houve um erro ao enviar sua mensagem. Por favor, tente novamente ou envie um email direto para contato@rodrigoniskier.com');
+      setIsSending(false);
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-stone-50 font-sans text-stone-800 relative">
       
-      {/* --- BARRA DE ADMIN (Aparece só quando logado) --- */}
+      {/* --- BARRA DE ADMIN --- */}
       {isAdmin && !isImmersive && (
         <div className="bg-burgundy-900 text-white px-4 py-2 text-xs flex justify-between items-center relative z-50">
-          <span className="font-bold tracking-wider">MODO ADMINISTRADOR (DESIGNER)</span>
+          <span className="font-bold tracking-wider">MODO ADMINISTRADOR</span>
           <div className="flex gap-4">
              <Link to="/admin" className="hover:underline">Painel</Link>
              <button onClick={() => setIsAdmin(false)} className="hover:text-red-300">Sair</button>
@@ -61,8 +116,6 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
       {/* --- HEADER --- */}
       <header className="bg-navy-900 text-white shadow-lg sticky top-0 z-40 border-b border-navy-800">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="bg-burgundy-700 p-2 rounded-lg group-hover:bg-burgundy-600 transition-colors">
               <BookOpen size={24} className="text-white" />
@@ -73,7 +126,6 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
             </div>
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <button onClick={() => openModal('confession')} className="text-stone-300 hover:text-white transition-colors flex items-center gap-2">
               <Shield size={16} /> Confissão de Fé
@@ -81,19 +133,16 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
             <button onClick={() => openModal('contact')} className="text-stone-300 hover:text-white transition-colors flex items-center gap-2">
               <MessageCircle size={16} /> Contato
             </button>
-            {/* Mantive o botão de Área do Aluno também, pois é útil para navegação normal */}
             <Link to="/admin" className="bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition-all flex items-center gap-2 border border-stone-700">
               <User size={16} /> Área do Aluno
             </Link>
           </nav>
 
-          {/* Mobile Menu Toggle */}
           <button className="md:hidden text-stone-300" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
-        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden bg-navy-800 border-t border-navy-700 p-6 space-y-4 animate-fade-in absolute w-full left-0 z-50 shadow-xl">
              <button onClick={() => openModal('confession')} className="block w-full text-left py-3 text-stone-300 border-b border-navy-700">Confissão de Fé</button>
@@ -118,9 +167,9 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
                 Dedicado a fornecer ensino teológico sólido, confessional e acessível.
               </p>
               <div className="flex gap-4">
-                <a href="https://https://www.instagram.com/rodrigo_niskier/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Instagram size={20} /></a>
-                <a href="https://www.linkedin.com/in/rodrigo-niskier-200549156/" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
-                <a href="mailto:niskier.rodrigo@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
+                <a href="https://github.com/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Github size={20} /></a>
+                <a href="https://www.linkedin.com/in/rodrigoniskier" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy-400 transition-colors"><Linkedin size={20} /></a>
+                <a href="mailto:contato@rodrigoniskier.com" className="hover:text-burgundy-400 transition-colors"><Mail size={20} /></a>
               </div>
             </div>
             
@@ -136,11 +185,8 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
             <div>
               <h3 className="text-white font-serif font-bold text-lg mb-4">Legal</h3>
               <p className="mb-2">© {new Date().getFullYear()} Rodrigo Niskier.</p>
-              
               <div className="flex items-center justify-between mt-4">
                   <p className="text-xs text-stone-600">Soli Deo Gloria.</p>
-                  
-                  {/* --- AQUI ESTÁ A ENGRENAGEM DE VOLTA --- */}
                   <button 
                     onClick={() => isAdmin ? setIsAdmin(false) : setShowPinDialog(true)}
                     className="opacity-20 hover:opacity-100 transition-opacity p-2 text-stone-500 hover:text-white"
@@ -156,7 +202,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
 
       {/* --- MODALS --- */}
       
-      {/* 1. PIN DIALOG (Lógica de Admin) */}
+      {/* 1. PIN DIALOG */}
       {showPinDialog && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-fade-in">
           <div className="bg-white p-8 rounded shadow-2xl max-w-sm w-full relative border-t-4 border-burgundy-800">
@@ -177,7 +223,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
         </div>
       )}
 
-      {/* 2. CONFISSÃO DE FÉ MODAL */}
+      {/* 2. CONFISSÃO DE FÉ */}
       {activeModal === 'confession' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/90 backdrop-blur-sm animate-fade-in" onClick={closeModal}>
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto relative" onClick={e => e.stopPropagation()}>
@@ -208,7 +254,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
         </div>
       )}
 
-      {/* 3. CONTATO MODAL */}
+      {/* 3. CONTATO (AGORA COM EMAIL REAL) */}
       {activeModal === 'contact' && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-900/90 backdrop-blur-sm animate-fade-in" onClick={closeModal}>
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-md relative overflow-hidden" onClick={e => e.stopPropagation()}>
@@ -218,11 +264,26 @@ export const Layout: React.FC<LayoutProps> = ({ children, isAdmin, setIsAdmin })
                 <h2 className="text-2xl font-serif font-bold text-white relative z-10">Fale Conosco</h2>
              </div>
              <div className="p-8">
-                <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Mensagem enviada!'); closeModal(); }}>
-                  <input type="text" className="w-full border border-stone-300 rounded p-2" placeholder="Seu Nome" />
-                  <input type="email" className="w-full border border-stone-300 rounded p-2" placeholder="Seu Email" />
-                  <textarea rows={3} className="w-full border border-stone-300 rounded p-2" placeholder="Mensagem"></textarea>
-                  <button type="submit" className="w-full bg-burgundy-800 text-white font-bold py-3 rounded hover:bg-burgundy-900">Enviar</button>
+                <form className="space-y-4" ref={formRef} onSubmit={handleContactSubmit}>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-stone-500 mb-1">Seu Nome</label>
+                    <input name="name" required type="text" className="w-full border border-stone-300 rounded-lg p-2 focus:ring-2 focus:ring-burgundy-500 outline-none" placeholder="Seu Nome" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-stone-500 mb-1">Seu Email</label>
+                    <input name="email" required type="email" className="w-full border border-stone-300 rounded-lg p-2 focus:ring-2 focus:ring-burgundy-500 outline-none" placeholder="email@exemplo.com" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-stone-500 mb-1">Mensagem</label>
+                    <textarea name="message" required rows={3} className="w-full border border-stone-300 rounded-lg p-2 focus:ring-2 focus:ring-burgundy-500 outline-none" placeholder="Sua mensagem..."></textarea>
+                  </div>
+                  <button 
+                    type="submit" 
+                    disabled={isSending}
+                    className={`w-full text-white font-bold py-3 rounded-lg transition-all shadow-md ${isSending ? 'bg-stone-400 cursor-not-allowed' : 'bg-burgundy-800 hover:bg-burgundy-900 hover:-translate-y-1'}`}
+                  >
+                    {isSending ? 'Enviando...' : 'Enviar Mensagem'}
+                  </button>
                 </form>
              </div>
           </div>

@@ -1,4 +1,16 @@
-export type LessonType = 'video' | 'article' | 'audio' | 'slide';
+export interface Lesson {
+  id: string;
+  title: string;
+  type: 'video' | 'audio' | 'text' | 'slide' | 'article';
+  content: string;
+  duration?: string;
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  lessons: Lesson[];
+}
 
 export interface Question {
   id: string;
@@ -7,47 +19,41 @@ export interface Question {
   correctOptionIndex: number;
 }
 
-export interface Quiz {
-  id: string;
-  title: string;
-  questions: Question[];
-  passingScore: number; // Percentage 0-100
-}
-
-export interface Lesson {
-  id: string;
-  title: string;
-  type: LessonType;
-  content: string; // URL or text body
-}
-
-export interface Module {
-  id: string;
-  title: string;
-  description?: string;
-  lessons: Lesson[];
-}
-
 export interface Course {
   id: string;
   title: string;
   description: string;
-  author: string;
   coverImage: string;
+  author?: string;
   modules: Module[];
-  finalQuiz?: Quiz;
+  finalQuiz?: {
+      id: string;
+      title: string;
+      passingScore: number;
+      questions: Question[];
+  };
 }
 
 export interface UserProgress {
   courseId: string;
-  completedLessonIds: string[];
+  completedLessons: string[];
   quizScore?: number;
-  completedDate?: string;
-  studentName?: string;
+  completedAt?: string;
+}
+
+// --- TIPOS DE MENSAGEM (Faltava isso) ---
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  date: string;
+  read: boolean;
 }
 
 export interface StorageData {
-  version: number; // Adicionado: Controle de versão
+  version: number;
   courses: Course[];
-  progress: Record<string, UserProgress>; 
+  progress: Record<string, UserProgress>;
+  messages: ContactMessage[]; // Adicionado campo de mensagens
 }
